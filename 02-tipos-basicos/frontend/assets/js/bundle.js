@@ -2,10 +2,10 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./src/19-exercicio/form-control.ts":
-/*!******************************************!*\
-  !*** ./src/19-exercicio/form-control.ts ***!
-  \******************************************/
+/***/ "./src/20-this-em-funcoes/form-control.ts":
+/*!************************************************!*\
+  !*** ./src/20-this-em-funcoes/form-control.ts ***!
+  \************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 
@@ -20,15 +20,17 @@ const username = document.querySelector('.username');
 const email = document.querySelector('.email');
 const password = document.querySelector('.password');
 const password2 = document.querySelector('.password2');
-form.addEventListener('submit', function (event) {
+const submitEventFn = (event) => {
     event.preventDefault();
-    hideErrorMessages(this);
+    const target = event.target;
+    hideErrorMessages(target);
     checkForEmptyFields(username, email, password, password2);
     checkEmail(email);
     checkEqualPasswords(password, password2);
-    if (shouldSendForm(this))
+    if (shouldSendForm(target))
         alert('FORMULÀRIO ENVIADO');
-});
+};
+form.addEventListener('submit', submitEventFn);
 function showErrorMessage(input, msg) {
     const formFields = input.parentElement;
     const errorMessage = formFields.querySelector('.error-message');
@@ -579,12 +581,20 @@ var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
 var exports = __webpack_exports__;
-/*!***********************************!*\
-  !*** ./src/19-exercicio/index.ts ***!
-  \***********************************/
+/*!*****************************************!*\
+  !*** ./src/20-this-em-funcoes/index.ts ***!
+  \*****************************************/
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-__webpack_require__(/*! ./form-control */ "./src/19-exercicio/form-control.ts");
+exports.funcao = void 0;
+__webpack_require__(/*! ./form-control */ "./src/20-this-em-funcoes/form-control.ts");
+function funcao(nome, age) {
+    console.log(this);
+    console.log(nome, age);
+}
+exports.funcao = funcao;
+funcao.call(new Date(), 'Marcio', 30);
+funcao.apply(new Date(), ['Saipers', 40]);
 
 })();
 
